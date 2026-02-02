@@ -1,0 +1,87 @@
+{% extends 'base/base.html' %}
+
+{% block title %}İletişim - {{ settings.site_name }}{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <h1 class="text-center mb-5">İletişim</h1>
+    
+    <div class="row">
+        <div class="col-md-6 mb-4">
+            <div class="card shadow">
+                <div class="card-body">
+                    <h4 class="card-title mb-4">
+                        <i class="fas fa-envelope text-primary"></i> Bize Yazın
+                    </h4>
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label class="form-label">Ad Soyad *</label>
+                            <input type="text" name="name" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">E-posta *</label>
+                            <input type="email" name="email" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Telefon</label>
+                            <input type="tel" name="phone" class="form-control">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Konu *</label>
+                            <input type="text" name="subject" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Mesajınız *</label>
+                            <textarea name="message" class="form-control" rows="5" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">
+                            <i class="fas fa-paper-plane"></i> Gönder
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-6">
+            <div class="card shadow mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <i class="fas fa-map-marker-alt text-primary"></i> Adres
+                    </h5>
+                    <p>{{ settings.address|default:"Adres bilgisi girilmemiş" }}</p>
+                </div>
+            </div>
+            
+            <div class="card shadow mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <i class="fas fa-phone text-primary"></i> Telefon
+                    </h5>
+                    <p>{{ settings.phone|default:"Telefon bilgisi girilmemiş" }}</p>
+                </div>
+            </div>
+            
+            <div class="card shadow mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <i class="fas fa-envelope text-primary"></i> E-posta
+                    </h5>
+                    <p>{{ settings.email|default:"E-posta bilgisi girilmemiş" }}</p>
+                </div>
+            </div>
+            
+            {% if settings.working_hours %}
+            <div class="card shadow">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <i class="fas fa-clock text-primary"></i> Çalışma Saatleri
+                    </h5>
+                    <p>{{ settings.working_hours|linebreaks }}</p>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
